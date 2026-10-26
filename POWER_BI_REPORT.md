@@ -2,7 +2,7 @@
 
 [Open the interactive Power BI report](https://app.powerbi.com/groups/1dab85b5-c696-42fa-968e-e7c235d246d0/reports/7599d9ce-23e5-4a92-94bb-cd67811139b4)
 
-The report is hosted in Power BI and may require sign-in and permission from its owner. This link does not grant access or publish the report publicly. A PBIX export is not included in this repository.
+The report is hosted in Power BI and may require sign-in and permission from its owner. This link does not grant access or publish the report publicly. A local Power BI export is available as [AirPassengers.pbix](AirPassengers.pbix). Download it and open it in Power BI Desktop.
 
 ## Report pages
 
