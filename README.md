@@ -37,7 +37,21 @@ The code forecasts 36 months from the end of training: the 24-month test period 
 
 ![SARIMA forecast and held-out observations](forecast.png)
 
-The repository includes exported charts, but the committed notebook has no saved cell execution outputs. Run it to obtain model diagnostics and evaluation scores; no forecast accuracy score is verified here.
+### Verified forecast accuracy
+
+The notebook was executed on **28 October 2026**: all **28 code cells** completed without errors and the SARIMA optimizer converged. Saved outputs include tables, stationarity tests, charts, the model summary and forecast evaluation.
+
+| Metric | 24-month test period: January 1959–December 1960 |
+| --- | ---: |
+| MAE | 43.7323 |
+| RMSE | 48.2498 |
+| MAPE | 9.4826% |
+| Training-fit AIC | -332.6217 |
+| Training-fit BIC | -319.9587 |
+
+The measured **9.48% MAPE** replaces the notebook's earlier unsupported below-5% claim. MAE and RMSE retain the CSV's original value scale. AIC/BIC describe the training fit, not test accuracy. These results verify this execution and historical split; they do not establish future performance or an unbiased model-selection evaluation.
+
+[Exact metrics and package versions](execution_results.json) · [24 holdout observations, forecasts and interval bounds](holdout_predictions.csv)
 
 ## Power BI report
 
@@ -86,7 +100,8 @@ These figures retain the CSV's original scale. Its headers do not specify a unit
    .venv\Scripts\Activate.ps1
    # macOS / Linux: source .venv/bin/activate
 
-   python -m pip install jupyterlab pandas numpy matplotlib seaborn statsmodels scikit-learn
+   python -m pip install -r requirements.txt
+   python -m pip install jupyterlab
    ```
 
 3. Start JupyterLab:
@@ -97,7 +112,7 @@ These figures retain the CSV's original scale. Its headers do not specify a unit
 
 4. Keep `AirPassengers.csv` beside the notebook and run all cells in order. The notebook reads the CSV using a relative path and writes PNG charts to the working directory. Running it can overwrite the existing chart exports.
 
-Dependencies are not pinned in this repository; package versions can affect model fitting and numerical results.
+The analysis dependencies are pinned in [requirements.txt](requirements.txt) to the versions used for the saved Python 3.12 execution. Package and platform differences can affect numerical results. Notebook cells were executed in order through IPython with captured text and rich display outputs; figures used Matplotlib’s Agg backend.
 
 ## Open the Power BI file
 
@@ -108,9 +123,11 @@ Download [AirPassengers.pbix](AirPassengers.pbix) and open it in Power BI Deskto
 | File | Contents |
 | --- | --- |
 | [AirPassengers.csv](AirPassengers.csv) | Monthly source data: `Month` and `#Passengers` |
-| [AirPassengers_TimeSeries_Portfolio.ipynb](AirPassengers_TimeSeries_Portfolio.ipynb) | Python preparation, exploration, stationarity tests, modeling and evaluation code |
+| [AirPassengers_TimeSeries_Portfolio.ipynb](AirPassengers_TimeSeries_Portfolio.ipynb) | Executed Python preparation, exploration, stationarity tests, modeling and evaluation with saved outputs |
 | [AirPassengers.pbix](AirPassengers.pbix) | Downloadable Power BI report |
 | [POWER_BI_REPORT.md](POWER_BI_REPORT.md) | Service report link, page descriptions, metrics and refresh notes |
+| [execution_results.json](execution_results.json), [holdout_predictions.csv](holdout_predictions.csv) | Verified run metrics, versions and 24 test predictions |
+| [requirements.txt](requirements.txt) | Pinned analysis dependencies for Python 3.12 |
 | [raw_series.png](raw_series.png), [rolling_stats.png](rolling_stats.png) | Historical trend and rolling statistics |
 | [heatmap.png](heatmap.png), [boxplot_month.png](boxplot_month.png), [monthly_avg_bar.png](monthly_avg_bar.png) | Seasonal views |
 | [decomposition.png](decomposition.png), [acf_pacf.png](acf_pacf.png) | Decomposition and correlation diagnostics |
@@ -127,3 +144,4 @@ Potential extensions include baseline comparisons, training-only model selection
 ---
 
 Created by **Meroe Asgharbeigi**.
+
